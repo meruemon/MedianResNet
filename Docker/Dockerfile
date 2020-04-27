@@ -18,39 +18,14 @@ RUN apt-get update \
   && dpkg-reconfigure -f noninteractive tzdata
 
 
-#RUN apt-get update && apt-add-repository -y ppa:jonathonf/ffmpeg-3 && apt-get update
-
-#RUN apt-get install -y ffmpeg libav-tools x264 x265
-
 RUN apt-get update && apt-get install -y libsm6 libxrender1 libxext-dev
-
 RUN apt-get -y clean all
-
 RUN rm -rf /var/lib/apt/lists/*
 
-# Install some useful and machine/deep-learning-related packages for Python3.
 
 RUN pip install keras==2.1.5
 RUN pip install scikit-image
 RUN pip install opencv-python
-
-# RUN conda install tensorboard 
-# RUN conda install -c conda-forge av tensorboardx
-
-#RUN conda install jupyterlab
-#RUN conda install jupyterlab_templates
-
-## OPENCV ##
-#RUN conda install opencv-contrib-python
-#RUN conda install -c conda-forge opencv
-#RUN conda install av
-#RUN conda install -c conda-forge tensorboardx
-
-# RUN curl -L  "https://oscdl.ipa.go.jp/IPAexfont/ipaexg00301.zip" > font.zip
-# RUN unzip font.zip
-# RUN cp ipaexg00301/ipaexg.ttf /usr/local/lib/python3.5/dist-packages/matplotlib/mpl-data/fonts/ttf/ipaexg.ttf
-# RUN echo "font.family : IPAexGothic" >>  /usr/local/lib/python3.5/dist-packages/matplotlib/mpl-data/matplotlibrc
-# RUN rm -r font.zip ipaexg00301
 
 #
 ENV USER yoshida
@@ -68,8 +43,4 @@ RUN echo "${USER}:yoshida" | chpasswd
 RUN echo 'Defaults visiblepw'             >> /etc/sudoers
 RUN echo '${USER} ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
-#RUN jupyter labextension install jupyterlab_templates
-#RUN jupyter labextension install @lckr/jupyterlab_variableinspector
 USER yoshida
-#RUN jupyter serverextension enable --py jupyterlab
-#RUN jupyter notebook --generate-config
