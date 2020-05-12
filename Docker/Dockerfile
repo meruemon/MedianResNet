@@ -1,9 +1,6 @@
 FROM nvcr.io/nvidia/tensorflow:19.07-py3
 
-MAINTAINER Soh Yoshida <sohy@kansai-u.ac.jp>
-
-
-ARG NUM_CPUS_FOR_BUILD=20
+ARG NUM_CPUS_FOR_BUILD=8
 
 RUN sed -i.bak -e "s%http://archive.ubuntu.com/ubuntu/%http://ftp.jaist.ac.jp/pub/Linux/ubuntu/%g" /etc/apt/sources.list
 

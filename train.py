@@ -87,29 +87,10 @@ n = 91 * 25 * 9
 X = np.zeros((n, n1, n2, 3), dtype=np.float)
 Y = np.zeros((n, n1, n2, 3), dtype=np.float)
 
-def data_aug(img, mode=0):
-    if mode == 0:
-        return img
-    elif mode == 1:
-        return np.flipud(img)
-    elif mode == 2:
-        return np.rot90(img)
-    elif mode == 3:
-        return np.flipud(np.rot90(img))
-    elif mode == 4:
-        return np.rot90(img, k=2)
-    elif mode == 5:
-        return np.flipud(np.rot90(img, k=2))
-    elif mode == 6:
-        return np.rot90(img, k=3)
-    elif mode == 7:
-        return np.flipud(np.rot90(img, k=3))
-
 def gen_patches(file_name, scales=[1], patch_size=70, stride=20, aug_times=1):
     # read image
     img = cv2.imread(file_name)
     img = cv2.resize(img, (200, 200), interpolation=cv2.INTER_CUBIC)
-    # h, w, _ = img.shape
     h, w, _ = img.shape
     patches = []
     for s in scales:
@@ -141,7 +122,7 @@ for file_name in os.listdir(src_img_dir):
 print("data prepared, ready to train!")
 
 # Fit the model
-history = model.fit(X, Y, validation_split=0.2, epochs=10, batch_size=32, callbacks=callbacks_list, verbose=1)
+history = model.fit(X, Y, validation_split=0.2, epochs=100, batch_size=32, callbacks=callbacks_list, verbose=1)
 
 model.save('fullyConvMedian.hdf5')
 
