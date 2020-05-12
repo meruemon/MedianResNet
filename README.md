@@ -16,7 +16,7 @@ Args:
 
 |変数|説明|
 |----|----|
-|model_location|pretrainedに保存した重みファイルのパス|
+|model_location|pretrainedに保存した重みファイルへのパス|
 |img_location|ノイズ除去対象ファイル|
 
 ## トレーニング
@@ -30,7 +30,7 @@ $ python train.py
 * L.63に事前学習済みの重みファイルパスを記述
 * epoch数はL.125の`epochs`で指定
 
-## ライブラリ
+## 依存ライブラリ
 
 * keras==2.1.5
 * tensorflow
