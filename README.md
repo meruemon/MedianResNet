@@ -6,6 +6,8 @@
 
 ```
 Usage: 
+    python inference.py
+    or
     python inference.py model_location img_location
 Args:
     model_location: str, '../pretrained/fullyConvMedian.hdf5' as default
@@ -38,4 +40,4 @@ $ python train.py
 
 ## TODO
 
-Pytorchへの書き換え
+* PyTorchへ書き換えたい

@@ -14,17 +14,20 @@ n_init_features = 64
 
 def find_medians(x, k=3):
     patches = tf.extract_image_patches(
-            x, 
-            ksizes=[1, k, k, 1],
+            x, # images: A 4-D Tensor with shape [batch, in_rows, in_cols, depth]
+            ksizes=[1, k, k, 1], # [1, ksize_rows, ksize_cols, 1]
             strides = [1, 1, 1, 1],
             rates=[1, 1, 1, 1],
             padding='SAME')
-    m_idx = int(k*k/2 + 1)
+    m_idx = int(k*k/2 + 1) # index corresponding to the median
+    # sort pixel values of each patch
+    # note that the maximum length of the list is set to m_idx
     top, _ = tf.nn.top_k(patches, m_idx, sorted=True)
+    # tf.slice(input, begin, size)
     median = tf.slice(top, [0, 0, 0, m_idx-1], [-1, -1, -1, 1])
     return median
 
-
+# median layer
 def median_pool2d(x, k=3):
     channels = tf.split(x, num_or_size_splits=x.shape[3], axis=3)
     for channel in channels:
@@ -37,9 +40,6 @@ def median_pool2d_output_shape(input_shape):
     shape = list(input_shape)
     return tuple(shape)
 
-def min_pool2d_output_shape(input_shape):
-    shape = list(input_shape)
-    return tuple(shape)
 
 def fully_conv(pretrained_weights=None, input_size=(None, None, 3)):
     def _residual_block(inputs, feature_dim=64):
@@ -66,7 +66,7 @@ def fully_conv(pretrained_weights=None, input_size=(None, None, 3)):
         x = Activation('relu')(x) 
         x = _residual_block(x, feature_dim=n_init_features)
         if i < 16:
-            x = Lambda(median_pool2d, arguments={'k': 5}, output_shape=min_pool2d_output_shape)(x) 
+            x = Lambda(median_pool2d, arguments={'k': 5}, output_shape=median_pool2d_output_shape)(x) 
     x = Conv2D(3, (3, 3), kernel_initializer='Orthogonal', padding='same')(x)
     model = Model(input=input_img, output=x)
     model.summary()
