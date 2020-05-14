@@ -32,11 +32,11 @@ $ python train.py
 
 ## 依存ライブラリ
 
-* keras==2.1.5
-* tensorflow
-* numpy
-* scikit-image
-* opencv-python
+* keras==2.1: ニューラルネットワークライブラリ
+* tensorflow: ニューラルネットワークライブラリ（バッチ処理）
+* numpy: 数値計算ライブラリ（行列生成）
+* scikit-image: 画像処理ライブラリ（雑音画像生成）
+* opencv-python: 画像処理ライブラリ（画像読み込み・保存，リサイズ，正規化）
 
 ## TODO
 
